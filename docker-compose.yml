@@ -1,0 +1,31 @@
+version: "2.2"
+services:
+  ac_api:
+    build:
+      context: .
+      dockerfile: 'Dockerfile.local'
+    command: "/bin/bash -c 'yarn && yarn start:dev'"
+    env_file: .env
+    volumes:
+      - '.:/usr/src/app'
+      - 'ac-api_deps:/usr/src/app/node_modules'
+    ports:
+      - '1337:3000'
+    networks:
+      - ac-api-network
+  mongodb_ac:
+    image: mongo:4.4.5
+    ports:
+      - '27017:27017'
+    volumes:
+      - 'ac-api_mongo:/etc/mongo'
+    networks:
+      ac-api-network:
+        aliases:
+          - mongo
+
+networks:
+  ac-api-network:
+volumes:
+  ac-api_deps:
+  ac-api_mongo:
