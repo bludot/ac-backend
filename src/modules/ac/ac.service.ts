@@ -9,7 +9,7 @@ import { IACData } from './interfaces'
 export class ACService {
   constructor(private readonly config: ConfigService<ACConfig>) {}
 
-  updateAC(data: IACData) {
+  async updateAC(data: IACData): Promise<void> {
     const query: string = queryString.stringify(data)
 
     axios.post(`${this.config.env.AC_URL}?${query}`).catch((error) => {
