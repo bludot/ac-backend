@@ -14,7 +14,7 @@ export class ConfigService<T> {
     private readonly type: ClassConstructor<T>,
     options: IConfigServiceOptions = {},
   ) {
-    this.envFile = this.resolveEnvFile(options.envFile)
+    this.envFile = this.envFile || this.resolveEnvFile(options.envFile)
     dotenv.config({ path: this.envFile })
 
     this.env = this.inputToClass(process.env)
