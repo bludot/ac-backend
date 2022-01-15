@@ -19,6 +19,9 @@ jobs:
       - name: install deps
         run: yarn install
 
+      - name: copy env
+        run: cp env.test.env .env
+
       - name: Test 🚨
         run: yarn test --runInBand
 
