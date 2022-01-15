@@ -7,15 +7,13 @@ import * as dotenv from 'dotenv'
 import { IConfigServiceOptions } from './types'
 
 export class ConfigService<T> {
-  private envFile: string
   public readonly env: T
 
   constructor(
     private readonly type: ClassConstructor<T>,
     options: IConfigServiceOptions = {},
   ) {
-    this.envFile = this.envFile || this.resolveEnvFile(options.envFile)
-    dotenv.config({ path: this.envFile })
+    dotenv.config({ path: this.resolveEnvFile(options.envFile) })
 
     this.env = this.inputToClass(process.env)
 
