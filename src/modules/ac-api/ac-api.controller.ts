@@ -10,7 +10,7 @@ export class AcApiController {
   @Post('/cmd')
   @HttpCode(200)
   @ApiOperation({
-    summary: 'Sign in with username/password (with/without otp)',
+    summary: 'Consume AC Request',
   })
   async updateAC(@Body() body: ACData) {
     await this.acService.updateAC(body)

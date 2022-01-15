@@ -1,6 +1,6 @@
-ARG NODE_VERSION=14.16.1
+ARG NODE_VERSION=16.13.0
 
-FROM node:${NODE_VERSION}-alpine3.10 as builder
+FROM node:${NODE_VERSION}-alpine as builder
 
 WORKDIR /build
 COPY --chown=node:node . ${WORKDIR}
