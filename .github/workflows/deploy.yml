@@ -32,6 +32,6 @@ jobs:
         with:
           context: .
           build-args: |
-            VERSION=${{ env.tag }}
+            SERVICE_VERSION=${{ env.tag }}
           push: true
           tags: ${{ secrets.REGISTRY }}/homeac/backend:${{ env.tag }}
