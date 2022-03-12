@@ -2,9 +2,211 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: ac-backend
+  description: The place to be, for great artists
+spec:
+  type: website
+  lifecycle: production
+  owner: bludot
+  system: Airconditioning-System
+  providesApis:
+    - ac-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ac-api
   annotations:
     github.com/project-slug: bludot/ac-backend
 spec:
-  type: other
-  lifecycle: unknown
+  type: openapi
+  lifecycle: production
+  owner: bludot
+  system: Airconditioning-System
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Auth API
+      description: ""
+      version: 1.0.0
+      contact: {}
+    tags: []
+    servers:
+      - url: http://localhost:3000/
+    components:
+      securitySchemes:
+        bearer:
+          scheme: bearer
+          bearerFormat: JWT
+          type: http
+      schemas:
+        ACData:
+          type: object
+          properties:
+            power:
+              type: number
+            temp:
+              type: number
+            mode:
+              type: number
+            fan:
+              type: number
+            powerful:
+              type: number
+            quiet:
+              type: number
+            swingh:
+              type: number
+            swingv:
+              type: number
+          required:
+            - power
+            - temp
+            - mode
+            - fan
+            - powerful
+            - quiet
+            - swingh
+            - swingv
+    paths:
+      /healthcheck:
+        get:
+          operationId: HealthCheckController_check
+          parameters: []
+          responses:
+            "200":
+              description: The Health Check is successful
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: ok
+                      info:
+                        type: object
+                        example:
+                          database:
+                            status: up
+                        additionalProperties:
+                          type: object
+                          properties:
+                            status:
+                              type: string
+                          additionalProperties:
+                            type: string
+                        nullable: true
+                      error:
+                        type: object
+                        example: {}
+                        additionalProperties:
+                          type: object
+                          properties:
+                            status:
+                              type: string
+                          additionalProperties:
+                            type: string
+                        nullable: true
+                      details:
+                        type: object
+                        example:
+                          database:
+                            status: up
+                        additionalProperties:
+                          type: object
+                          properties:
+                            status:
+                              type: string
+                          additionalProperties:
+                            type: string
+            "503":
+              description: The Health Check is not successful
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: error
+                      info:
+                        type: object
+                        example:
+                          database:
+                            status: up
+                        additionalProperties:
+                          type: object
+                          properties:
+                            status:
+                              type: string
+                          additionalProperties:
+                            type: string
+                        nullable: true
+                      error:
+                        type: object
+                        example:
+                          redis:
+                            status: down
+                            message: Could not connect
+                        additionalProperties:
+                          type: object
+                          properties:
+                            status:
+                              type: string
+                          additionalProperties:
+                            type: string
+                        nullable: true
+                      details:
+                        type: object
+                        example:
+                          database:
+                            status: up
+                          redis:
+                            status: down
+                            message: Could not connect
+                        additionalProperties:
+                          type: object
+                          properties:
+                            status:
+                              type: string
+                          additionalProperties:
+                            type: string
+      /cmd:
+        post:
+          operationId: AcApiController_updateAC
+          summary: Consume AC Request
+          parameters: []
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ACData"
+          responses:
+            "200":
+              description: ""
+      /state:
+        get:
+          operationId: AcApiController_getState
+          summary: Get AC State
+          parameters: []
+          responses:
+            "200":
+              description: ""
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: Airconditioning-System
+  description: System that controls the AC
+spec:
+  owner: bludot
+  domain: Home-Assistant
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: Home-Assistant
+  description: Home assistent domain
+spec:
   owner: bludot
