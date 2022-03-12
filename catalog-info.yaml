@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ac-backend
+  annotations:
+    github.com/project-slug: bludot/ac-backend
+spec:
+  type: other
+  lifecycle: unknown
+  owner: bludot
