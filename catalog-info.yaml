@@ -10,15 +10,6 @@ spec:
   system: Airconditioning-System
   providesApis:
     - ac-api
-  status:
-    items:
-      - type: backstage.io/catalog-processing
-        level: error
-        message: 'NotFoundError: File not found'
-        error:
-          name: NotFoundError
-          message: File not found
-          stack: ...
 ---
 apiVersion: backstage.io/v1alpha1
 kind: API
