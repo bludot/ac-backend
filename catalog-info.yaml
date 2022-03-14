@@ -3,6 +3,8 @@ kind: Component
 metadata:
   name: ac-backend
   description: The place to be, for great artists
+  annotations:
+    sonarqube.org/project-key: bludot_ac-backend
 spec:
   type: website
   lifecycle: production
