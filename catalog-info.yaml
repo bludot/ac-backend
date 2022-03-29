@@ -8,7 +8,7 @@ metadata:
 spec:
   type: website
   lifecycle: production
-  owner: floretos,bludot
+  owner: floretos
   system: Airconditioning-System
   providesApis:
     - ac-api
