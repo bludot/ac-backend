@@ -8,3 +8,9 @@ export interface IACData {
   readonly swingh: number
   readonly swingv: number
 }
+
+export interface IRoomConditions {
+  readonly tempC: number
+  readonly tempF: number
+  readonly humidity: number
+}

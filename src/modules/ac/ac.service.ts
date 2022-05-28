@@ -3,7 +3,7 @@ import axios from 'axios'
 import * as queryString from 'query-string'
 import { ConfigService } from '../config/config.service'
 import { ACConfig } from './ac.config'
-import { IACData } from './interfaces'
+import { IACData, IRoomConditions } from "./interfaces";
 
 @Injectable()
 export class ACService {
@@ -13,13 +13,23 @@ export class ACService {
   async updateAC(data: IACData): Promise<void> {
     const query: string = queryString.stringify(data)
 
-    await axios.post(`${this.config.env.AC_URL}?${query}`).catch((error) => {
+    await axios.post(`${this.config.env.AC_URL}/cmd?${query}`).catch((error) => {
       console.error(error)
     })
-    
+
     return this.saveState(data)
   }
 
+  async getRoomConditions(): Promise<IRoomConditions> {
+    const { data } = await axios.get(`${this.config.env.AC_URL}/roomconditions`)
+
+    return {
+      tempC: data.tempC,
+      tempF: data.tempF,
+      humidity: data.humidity,
+    }
+
+  }
   saveState(data: IACData): void {
     this.adData = data
   }
