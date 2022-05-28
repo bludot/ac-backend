@@ -24,4 +24,13 @@ export class AcApiController {
   async getState() {
     return this.acService.getState()
   }
+
+  @Get('/roomconditions')
+  @HttpCode(200)
+  @ApiOperation({
+    summary: 'Get Room Conditions',
+  })
+  async getRoomConditions() {
+    return this.acService.getRoomConditions()
+  }
 }
