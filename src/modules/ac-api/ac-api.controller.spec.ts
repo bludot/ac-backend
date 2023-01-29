@@ -53,9 +53,9 @@ describe('ACService', () => {
         .expect(200)
     })
     // eslint-disable-next-line jest/expect-expect
-    it('Should return bad request', () => {
+    it('Should return bad request', async (done) => {
       axios.post = jest.fn().mockResolvedValue({ data: { data: { power: 1 } } })
-      return request(app.getHttpServer())
+      request(app.getHttpServer())
         .post('/cmd')
         .send({
           power: 'ON',
@@ -68,6 +68,10 @@ describe('ACService', () => {
           swingv: 0,
         })
         .expect(400)
+        .end((err) => {
+          if (err) return done(err)
+          done()
+        })
     })
   })
 })
