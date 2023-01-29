@@ -27,7 +27,7 @@ describe('ACService', () => {
     it('should update AC', async () => {
       mqttService.publish = jest.fn()
       // TODO: Add test for mqtt
-      await acService.updateAC(({
+      acService.updateAC(({
         power: 'on',
       } as unknown) as IACData)
       expect(true).toEqual(true)
