@@ -13,6 +13,12 @@ export class MQTTService {
       username: this.config.env.MQTT_USERNAME,
       password: this.config.env.MQTT_PASSWORD,
     });
+    this.client.on('connect', () => {
+      console.log('connected');
+    });
+    this.client.on('error', (error) => {
+      console.log('client', error); // never fires
+    });
   }
 
   publish(topic: string, message: string): void {
