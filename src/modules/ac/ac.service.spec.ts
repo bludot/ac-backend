@@ -4,6 +4,7 @@ import { ConfigModule } from '../config/config.module'
 import { ACService } from './ac.service'
 import { IACData } from './interfaces'
 import { ACConfig } from './ac.config'
+import { MQTTModule } from '../mqtt/mqtt.module'
 
 jest.mock('axios')
 describe('ACService', () => {
@@ -12,7 +13,7 @@ describe('ACService', () => {
     async (): Promise<void> => {
       // tslint:disable-next-line:typedef
       const moduleRef = await Test.createTestingModule({
-        imports: [ConfigModule.register(ACConfig, { envFile: 'env.test.env' })],
+        imports: [ConfigModule.register(ACConfig, { envFile: 'env.test.env' }), MQTTModule],
         providers: [ACService],
       }).compile()
 
