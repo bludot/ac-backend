@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common'
 import * as queryString from 'query-string'
 import { MQTTService } from '../mqtt/mqtt.service'
-import { IACData, IRoomConditions } from "./interfaces";
+import { IACData } from "./interfaces";
+import { IRoomConditions } from './repository/interfaces';
 import { RoomConditionsRepository } from './repository/roomconditions.repository'
 
 @Injectable()
@@ -53,6 +54,14 @@ export class ACService {
 
   getRoomConditions(): IRoomConditions {
     return this.roomConditions
+  }
+
+  getRoomConditionsHistory(): Promise<IRoomConditions[]> {
+    return this.roomConditionsRepository.getRoomConditions()
+  }
+
+  getRoomConditionsHistoryBetweenDates(startDate: Date, endDate: Date): Promise<IRoomConditions[]> {
+    return this.roomConditionsRepository.getRoomConditionsBetweenDates(startDate, endDate)
   }
 
 }

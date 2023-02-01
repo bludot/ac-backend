@@ -3,8 +3,6 @@ import { Document, Schema as MongooseSchema } from 'mongoose'
 
 @Schema({ collection: 'roomconditions' })
 export class RoomConditions extends Document {
-  @Prop({ type: Number, required: true, index: true, dropDups: true, auto: true })
-  readonly id: number
 
   @Prop({ type: Number, required: true })
   readonly tempC: number
@@ -14,6 +12,14 @@ export class RoomConditions extends Document {
 
   @Prop({ type: Number, required: true })
   readonly humidity: number
+
+  @Prop({ type: Date, required: true, default: Date.now })
+  readonly createdAt: Date
+
+  @Prop({ type: Date, required: true, default: Date.now })
+  readonly updatedAt: Date
+
+
 }
 
 const schema: MongooseSchema<RoomConditions> = SchemaFactory.createForClass(RoomConditions)
