@@ -8,13 +8,14 @@ import { IACData, IRoomConditions } from "./interfaces";
 
 @Injectable()
 export class ACService {
-  private adData: IACData
+  private acData: IACData
+  private roomConditions: IRoomConditions
   constructor(
     private readonly config: ConfigService<ACConfig>, 
     @Inject('MQTT')
     private readonly mqttService: MQTTService
     ) {
-    this.adData = {
+    this.acData = {
       "power": 0,
       "temp": 24,
       "mode": 0,
@@ -23,6 +24,11 @@ export class ACService {
       "quiet": 1,
       "swingh": 1,
       "swingv": 1
+    }
+    this.roomConditions = {
+      tempC: 0,
+      tempF: 0,
+      humidity: 0
     }
   }
 
@@ -33,22 +39,21 @@ export class ACService {
     return this.saveState(data)
   }
 
-  async getRoomConditions(): Promise<IRoomConditions> {
-    const { data } = await axios.get(`${this.config.env.AC_URL}/roomconditions`)
-
-    return {
-      tempC: data.tempC,
-      tempF: data.tempF,
-      humidity: data.humidity,
-    }
-
-  }
+  
   saveState(data: IACData): void {
-    this.adData = data
+    this.acData = data
   }
 
   getState(): IACData {
-    return this.adData
+    return this.acData
+  }
+
+  setRoomConditions(data: IRoomConditions): void {
+    this.roomConditions = data
+  }
+
+  getRoomConditions(): IRoomConditions {
+    return this.roomConditions
   }
 
 }
