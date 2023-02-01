@@ -5,9 +5,10 @@ import { AcApiModule } from '../modules/ac-api/ac-api.module'
 import { ServerConfig } from './server.config'
 import { MQTTModule } from 'src/modules/mqtt/mqtt.module'
 import { KafkaModule } from 'src/modules/kafka/kafka.module'
+import { MongoConnectorModule } from 'src/modules/mongo-connector/mongo-connector.module'
 
 @Module({
-  imports: [HealthcheckModule, MQTTModule, KafkaModule],
+  imports: [HealthcheckModule, MongoConnectorModule, MQTTModule, KafkaModule],
 })
 export class ServerModule {
   static forRoot(config: ConfigService<ServerConfig>): DynamicModule {
