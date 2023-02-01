@@ -1,19 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common'
-import axios from 'axios'
 import * as queryString from 'query-string'
-import { ConfigService } from '../config/config.service'
 import { MQTTService } from '../mqtt/mqtt.service'
-import { ACConfig } from './ac.config'
-import { IACData, IRoomConditions } from "./interfaces";
+import { IACData } from "./interfaces";
+import { IRoomConditions } from './repository/interfaces';
+import { RoomConditionsRepository } from './repository/roomconditions.repository'
 
 @Injectable()
 export class ACService {
   private acData: IACData
   private roomConditions: IRoomConditions
   constructor(
-    private readonly config: ConfigService<ACConfig>, 
     @Inject('MQTT')
-    private readonly mqttService: MQTTService
+    private readonly mqttService: MQTTService,
+    private readonly roomConditionsRepository: RoomConditionsRepository,
     ) {
     this.acData = {
       "power": 0,
@@ -50,10 +49,19 @@ export class ACService {
 
   setRoomConditions(data: IRoomConditions): void {
     this.roomConditions = data
+    this.roomConditionsRepository.upsert(data)
   }
 
   getRoomConditions(): IRoomConditions {
     return this.roomConditions
+  }
+
+  getRoomConditionsHistory(): Promise<IRoomConditions[]> {
+    return this.roomConditionsRepository.getRoomConditions()
+  }
+
+  getRoomConditionsHistoryBetweenDates(startDate: Date, endDate: Date): Promise<IRoomConditions[]> {
+    return this.roomConditionsRepository.getRoomConditionsBetweenDates(startDate, endDate)
   }
 
 }
