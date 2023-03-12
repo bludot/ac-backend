@@ -20,4 +20,8 @@ export class MQTTConfig {
   @Expose()
   @IsString()
   readonly MQTT_PASSWORD: string
+
+  @Expose()
+  @IsString()
+  HeartBeatTopic: string
 }
