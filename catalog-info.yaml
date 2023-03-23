@@ -4,6 +4,7 @@ metadata:
   name: ac-backend
   description: The place to be, for great artists
   annotations:
+    grafana/tag-selector: dns
     sonarqube.org/project-key: bludot_ac-backend
 spec:
   type: website
