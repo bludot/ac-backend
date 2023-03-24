@@ -206,11 +206,3 @@ metadata:
 spec:
   owner: bludot
   domain: Home-Assistant
----
-apiVersion: backstage.io/v1alpha1
-kind: Domain
-metadata:
-  name: Home-Assistant
-  description: Home assistent domain
-spec:
-  owner: bludot
