@@ -6,6 +6,7 @@ metadata:
   annotations:
     grafana/tag-selector: dns
     sonarqube.org/project-key: bludot_ac-backend
+    grafana/overview-dashboard: https://grafana.floretos.com/d/vkQ0UHxik/coredns?orgId=1&refresh=10s
 spec:
   type: website
   lifecycle: production
