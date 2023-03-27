@@ -1,6 +1,6 @@
 # test
 
-```mermaidcode
+```code
 graph LR
   A[Start] --> B{Error?};
   B -->|Yes| C[Hmm...];
