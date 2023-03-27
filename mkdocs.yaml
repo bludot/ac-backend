@@ -1,4 +1,4 @@
-site_name: income-verification-service
+site_name: ac-backend
 
 plugins:
   - techdocs-core
