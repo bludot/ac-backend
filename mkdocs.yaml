@@ -1,7 +1,7 @@
 site_name: ac-backend
 
 plugins:
-  #- techdocs-core
+  - techdocs-core
   - mermaid2
 
 extra_javascript:
