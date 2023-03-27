@@ -6,6 +6,7 @@ metadata:
   annotations:
     grafana/tag-selector: dns
     sonarqube.org/project-key: bludot_ac-backend
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: website
   lifecycle: production
