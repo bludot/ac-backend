@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { Model, UpdateQuery, FilterQuery, QueryOptions } from 'mongoose'
-import { dataSourceConnectionName } from 'src/modules/mongo-connector/mongo-connector.config'
+import { Model, QueryOptions } from 'mongoose'
+import { dataSourceConnectionName } from '../../mongo-connector/mongo-connector.config'
 import { IRoomConditions } from './interfaces'
 import { RoomConditions } from './roomconditions.schema'
 
